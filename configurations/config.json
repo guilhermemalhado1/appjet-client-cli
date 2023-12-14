@@ -1,0 +1,33 @@
+{
+    "appJetURL": "http://localhost:8080",
+    "plugins": {
+        "git": {
+            "enabled": true,
+            "repo-url": "",
+            "repo-user": "",
+            "repo-password": ""
+        }
+    },
+    "cluster": {
+        "name": "cluster-1",
+        "servers": [
+            {
+                "name": "server-1",
+                "ip-address": "127.0.0.1",
+                "port": 8080,
+                "user": "user1",
+                "password": "Xpto456!"
+            }
+        ]
+    },
+    "artifact": {
+        "language": {
+            "name": "java",
+            "version": "17.1",
+            "framework": {
+                "name": "spring-boot"
+            }
+        }
+    }
+}
+  
