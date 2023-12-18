@@ -59,7 +59,7 @@ func getCommandUsage(command string) string {
 	case "delete":
 		return "   <app-name> <token>"
 	case "create":
-		return "   <token>"
+		return "   <token> OK"
 	case "inspect":
 		return "  <app-name> <token>"
 	case "rename":
@@ -67,13 +67,15 @@ func getCommandUsage(command string) string {
 	case "show":
 		return "     <app-name> <token>"
 	case "login":
-		return "    <username>"
+		return "    <username> OK"
 	case "start":
 		return "    <token>"
 	case "ls":
 		return "       <token>"
 	case "logout":
-		return "   <token>"
+		return "   <token> OK"
+	case "refresh":
+		return "  <token>"
 	default:
 		return ""
 	}

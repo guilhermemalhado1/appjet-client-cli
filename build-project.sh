@@ -6,4 +6,4 @@
 datetime=$(date +"%m%d%Y%H%M")
 
 # Create a build folder with the appended date and time
-go build -o "client-cli-build-$datetime/appjet-client-cli" ./cmd
+go build -o "artifacts/appjet-client-cli-$datetime" ./cmd
