@@ -83,3 +83,66 @@ func getConfigFilePath() (string, error) {
 
 	return filepath.Join(filepath.Dir(filename), "", jsonPropertyFileName), nil
 }
+
+func CreateConfigFile(appJetURL string, gitEnabled bool, gitRepoURL string, gitRepoUser string, gitRepoPassword string,
+	serverName string, serverIPAddress string, serverPort int, serverUser string, serverPassword string,
+	clusterName string, languageName string, languageVersion string, frameworkName string) error {
+
+	// Create a new Config instance
+	newConfig := Config{
+		AppJetURL: appJetURL,
+		Plugins: struct {
+			Git GitConfig `json:"git"`
+		}{
+			Git: GitConfig{
+				Enabled:      gitEnabled,
+				RepoURL:      gitRepoURL,
+				RepoUser:     gitRepoUser,
+				RepoPassword: gitRepoPassword,
+			},
+		},
+		Cluster: ClusterConfig{
+			Name: clusterName,
+			Servers: []ServerConfig{
+				{
+					Name:      serverName,
+					IPAddress: serverIPAddress,
+					Port:      serverPort,
+					User:      serverUser,
+					Password:  serverPassword,
+				},
+			},
+		},
+		Artifact: ArtifactConfig{
+			Language: LanguageConfig{
+				Name: languageName,
+				Version: languageVersion,
+				Framework: FrameworkConfig{
+					Name: frameworkName,
+				},
+			},
+		},
+	}
+
+	// Get the path to the configuration file
+	configFilePath, err := getConfigFilePath()
+	if err != nil {
+		return err
+	}
+
+	// Create or overwrite the configuration file
+	file, err := os.Create(configFilePath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	// Encode the configuration and write it to the file
+	encoder := json.NewEncoder(file)
+	err = encoder.Encode(&newConfig)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

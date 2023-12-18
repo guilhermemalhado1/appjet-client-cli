@@ -15,8 +15,8 @@
                 "name": "server-1",
                 "ip-address": "127.0.0.1",
                 "port": 8080,
-                "user": "user1",
-                "password": "Xpto456!"
+                "user": "root",
+                "password": "admin"
             }
         ]
     },
