@@ -145,3 +145,50 @@ func SignupUser(username, password, email string) {
 		fmt.Println("Failed to create account. Status code:", resp.StatusCode)
 	}
 }
+
+func StartProcess() {
+	startURL := configurations.AppConfig.AppJetURL + "/api/start"
+
+	// Create the JSON request body
+	requestBody, err := json.Marshal(configurations.AppConfig)
+	if err != nil {
+		fmt.Println("Error marshaling JSON:", err)
+		return
+	}
+
+	// Create a new HTTP request
+	req, err := http.NewRequest("POST", startURL, bytes.NewBuffer(requestBody))
+	if err != nil {
+		fmt.Println("Error creating HTTP request:", err)
+		return
+	}
+
+	// Set the content type header
+	req.Header.Set("Content-Type", "application/json")
+
+	// Add authorization header
+	addAuthorizationHeader(req)
+
+	// Send the request
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Println("Error making HTTP request:", err)
+		return
+	}
+	defer resp.Body.Close()
+
+	// Read the response
+	responseBody, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Error reading response body:", err)
+		return
+	}
+
+	// Check the response status
+	if resp.StatusCode == http.StatusOK {
+		fmt.Println("Start process successful. Server response:", string(responseBody))
+	} else {
+		fmt.Printf("Start process failed. Server response: %s\n", string(responseBody))
+	}
+}

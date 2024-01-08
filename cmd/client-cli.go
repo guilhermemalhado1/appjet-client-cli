@@ -82,10 +82,8 @@ func getCommandUsage(command string) string {
 }
 
 func start(args []string) {
-	fmt.Println("Starting app...")
-	if len(args) > 0 {
-		fmt.Println("App name:", args[0])
-	}
+	
+	requests.StartProcess()
 }
 
 func config(args []string) {
